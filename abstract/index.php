@@ -1,7 +1,7 @@
 <?php
 
 
-class AchievementType
+abstract class AchievementType
 {
     public function name()
     {
@@ -16,6 +16,13 @@ class AchievementType
     {
         return strtolower(str_replace(' ', '-', $this->name())) . '.png';
     }
+
+    abstract public function qualifier($user);
+
+    // public function qualifier($user)
+    // {
+    //     throw new \Exception('qualifier not implemented');
+    // }
 }
 
 
@@ -33,8 +40,7 @@ class FirstThousandPoints extends AchievementType
     }
 
     public function qualifier($user)
-    {
-
+    {        
     }
 }
 
@@ -57,6 +63,29 @@ class FirstBestAnswer
     }
 }
 
-$achievementType = new AchievementType();
-var_dump($achievementType->name());
-echo $achievementType->icon();
+class ReachTop50 extends AchievementType
+{
+
+    public function icon()
+    {
+        return "override icon";
+    }
+
+    public function qualifier($user)
+    {
+
+    }
+}
+
+
+//$achievementType = new AchievementType();
+// var_dump($achievementType->name());
+// echo $achievementType->icon();
+
+//$achievement = new FirstThousandPoints();
+//var_dump($achievement->name());
+//echo $achievement->icon();
+
+$achievement = new ReachTop50();
+echo $achievement->icon();
+echo $achievement->qualifier('user');
